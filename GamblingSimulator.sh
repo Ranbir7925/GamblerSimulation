@@ -8,11 +8,20 @@ win=0
 loss=0
 
 #CONSTANT
-bet=1
+BET=1
+MIN_STAKE_VALUE=$(( $stake * 50/100 ))
+MAX_STAKE_VALUE=$(( $stake + $MIN_STAKE_VALUE ))
 
-if (( $((RANDOM%2)) == 1 ))
-then
-	((win++))
-else
-	((loss++))
-fi
+#Playing till stake value reaches to its limit
+while (($stake<$MAX_STAKE_VALUE && $stake>$MIN_STAKE_VALUE ))
+do
+	if (( $((RANDOM%2)) == 1 ))
+	then
+		((win++))
+		((stake++))
+	else
+		((loss++))
+		((stake--))
+	fi
+done
+
